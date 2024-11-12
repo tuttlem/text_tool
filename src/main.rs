@@ -1,32 +1,13 @@
 mod config;
 mod lib;
+mod cli;
 
 use clap::{Parser, Subcommand};
+
+use cli::{Commands, Cli};
 use log::{error};
 use std::process::ExitCode;
 
-#[derive(Parser)]
-#[command(name = "Text Tool")]
-#[command(about = "A CLI tool for basic text transformations", long_about = None)]
-struct Cli {
-    #[command(subcommand)]
-    command: Commands,
-}
-
-#[derive(Subcommand)]
-enum Commands {
-    Uppercase { input: Option<String>, output: Option<String> },
-    Lowercase { input: Option<String>, output: Option<String> },
-    Replace {
-        #[arg(required = true)]
-        input: String,    // Make `input` required to avoid clap errors
-        #[arg(required = true)]
-        from: String,
-        #[arg(required = true)]
-        to: String,
-        output: Option<String>,
-    },
-}
 
 
 fn main() -> ExitCode {
